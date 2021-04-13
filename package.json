@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.1.1",
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "codemirror": "^5.60.0",
     "jsonwebtoken": "^8.5.1",

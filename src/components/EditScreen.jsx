@@ -1,20 +1,14 @@
 import { useState, useEffect } from 'react'
 import OurEditor from './OurEditor'
 import Editor from "@monaco-editor/react";
-
+import DisplayOutput from './DisplayOutput'
 
 const EditScreen = ({initial_html,initial_css}) => {
 
     const [html, setHtml] = useState(initial_html)
     const [css, setCss] = useState(initial_css)
 
-    const srcDoc = `
-    <html>
-    <body>${html}</body>
-    <style>${css}</style>
-    </html>
 
-    `
 
 
 
@@ -31,16 +25,12 @@ const EditScreen = ({initial_html,initial_css}) => {
                     <OurEditor language="css" displayName="CSS" value={css} onChange={setCss} />
                 </div>
                 <div className="pane" style={{border:'5px solid rgba(0, 0, 0, 0.05)'}}>
-                    <iframe
-                        srcDoc={srcDoc}
-                        title="output"
-                        // sandbox="allow-scripts"
-                        frameBorder="1"
-                        width="200%"
-                        height="100%"
-                        style={{resize:"both",overflow:"hidden",backgroundColor:'white'}}
-
+                    
+                    <DisplayOutput 
+                    html={html}
+                    css={css}
                     />
+
                 </div>
             </div>
 

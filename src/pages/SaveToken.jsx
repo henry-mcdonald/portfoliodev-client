@@ -11,6 +11,11 @@ const SaveToken = ({ setUser }) => {
         // grabs the token from the query param and saves it to localstorage
         console.log('token is:', token)
         localStorage.setItem('jwt', token)
+        // const authHeaders = {
+        // headers: {'Authorization': token}
+        // }
+
+        // localStorage.setItem('authHeaders', authHeaders)
 
         // We decode the user from the JWT
         const user = jwt.decode(token)
