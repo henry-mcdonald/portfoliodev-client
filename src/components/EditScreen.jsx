@@ -2,15 +2,13 @@ import { useState, useEffect } from 'react'
 import OurEditor from './OurEditor'
 import Editor from "@monaco-editor/react";
 import DisplayOutput from './DisplayOutput'
+import axios from 'axios'
 
-const EditScreen = ({initial_html,initial_css}) => {
+const EditScreen = ({user,currentPage,initial_html,initial_css}) => {
+
 
     const [html, setHtml] = useState(initial_html)
     const [css, setCss] = useState(initial_css)
-
-
-
-
 
     return (
         <div>

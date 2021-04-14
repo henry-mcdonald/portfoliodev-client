@@ -88,6 +88,7 @@ const App = () => {
                                     <Navbar user={user} handleLogout={handleLogout} />
 
                                     <Pages {...props}
+                                    user={user}
                                         pageList={pageList}
                                         setPageList={setPageList}
 
@@ -103,7 +104,10 @@ const App = () => {
                             <PreviewContainer />
                         </Route>
                         <Route path="*" > 
-                            <NoMatch pageList={pageList}/>
+                            <NoMatch 
+                            pageList={pageList}
+                            user={user}
+                            />
 
                         </Route>
                     </Switch>

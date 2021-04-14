@@ -1,20 +1,34 @@
 import {useState} from 'react'
+import axios from 'axios'
 
-const AddOrRemovePage = ({pageList}) => {
+const AddOrRemovePage = ({user,setPageList,setCurrentPage}) => {
 
 
     const [pageNameToCreate, setPageNameToCreate] = useState("")
 
-    const handleCreatePage = () => {
-
+    const handleCreatePage = async(e) => {
+        e.preventDefault()
+        const token = localStorage.getItem('jwt')
+        console.log(token)
+        const authHeaders =  {
+            'Authorization': token
+        }
+        const results = await (await axios.get(`${process.env.REACT_APP_SERVER_URL}/pages/${user._id}/${pageNameToCreate}/new`,{headers:authHeaders})).data.pageData.pages
+        console.log(results)
+        const newPageList = []
+        for(let i =0; i<results.length;i++){
+            console.log("what'sgoingon")
+            newPageList.push(results[i].name)
+        }
+        setPageList(newPageList)
+        setCurrentPage(pageNameToCreate)
+        
     }
     return(
         <div style={{display:'flex',flexDirection:'row'}}>
         <form style={{
             display:'flex',
             justifyContent:'center'
-
-        
         }}>
             <label>
             <input type="text" name="newFormName" 
