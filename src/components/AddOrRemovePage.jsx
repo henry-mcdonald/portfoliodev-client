@@ -17,7 +17,6 @@ const AddOrRemovePage = ({user,setPageList,setCurrentPage}) => {
         console.log(results)
         const newPageList = []
         for(let i =0; i<results.length;i++){
-            console.log("what'sgoingon")
             newPageList.push(results[i].name)
         }
         setPageList(newPageList)

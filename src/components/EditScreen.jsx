@@ -4,11 +4,20 @@ import Editor from "@monaco-editor/react";
 import DisplayOutput from './DisplayOutput'
 import axios from 'axios'
 
-const EditScreen = ({user,currentPage,initial_html,initial_css}) => {
+const EditScreen = ({user,currentPage,initialHtml,initialCss}) => {
 
+    //loading
+    //reload
 
-    const [html, setHtml] = useState(initial_html)
-    const [css, setCss] = useState(initial_css)
+    //timing
+    //re-render not occurring
+    const [html, setHtml] = useState(initialHtml)
+    const [css, setCss] = useState(initialCss)
+    useEffect(() => {
+
+        console.log("Edit Screen Did Mount with initial Html", initialHtml,"and initial CSS", initialCss)
+    }, [])
+
 
     return (
         <div>

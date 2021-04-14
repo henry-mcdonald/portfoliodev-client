@@ -4,16 +4,11 @@ import Editor from "@monaco-editor/react";
 
 
 const OurEditor = ({ language, displayName, value, onChange }) => {
-    // useEffect(()=>{
-    //     editor.defineTheme('my-theme', {
-    //         base: 'vs',
-    //         inherit: true,
-    //         rules: [],
-    //         colors: {
-    //           'editor.background': '#202124',
-    //         },
-    //   });
-    // })
+    useEffect(()=>{
+
+        console.log(language, " Editor Did Mount with value", value)
+        
+    },[])
 
     function handleChange(e) {
         console.log("hit handle change")

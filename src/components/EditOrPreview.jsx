@@ -5,7 +5,7 @@ const EditOrPreview = ({ inPreviewMode }) => {
     const previewMode = (
         <>
                 <Link to="/edit">
-                    <span onClick={console.log("clicked")}></span>
+                    <span></span>
                 </Link>
         </>
     )
