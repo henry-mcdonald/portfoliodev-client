@@ -5,8 +5,8 @@ import axios from 'axios'
 
 const Pages = ({ user, pageList, setPageList }) => {
     const [currentPage, setCurrentPage] = useState("Main") // default always to main
-    const [initialHtml, setInitialHtml] = useState("f")
-    const [initialCss, setInitialCss] = useState("f")
+    const [initialHtml, setInitialHtml] = useState("")
+    const [initialCss, setInitialCss] = useState("")
 
 
     let initialPageList = []
@@ -31,8 +31,6 @@ const Pages = ({ user, pageList, setPageList }) => {
         setInitialCss(pageData[indexOfPage].css)
         console.log("API is hit, initial html is:\n", pageData[indexOfPage].html)
         console.log("API is hit, initial css is:\n", pageData[indexOfPage].css)
-        console.log("this is html state", initialHtml)
-        console.log("this is css state",initialCss)
     }, [currentPage])
 
 
