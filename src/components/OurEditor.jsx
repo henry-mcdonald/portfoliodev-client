@@ -3,15 +3,15 @@ import React, {useEffect} from 'react'
 import Editor from "@monaco-editor/react";
 
 
-const OurEditor = ({ language, displayName, value, onChange }) => {
+const OurEditor = ({ language, displayName, value, onChange, setViewMode}) => {
     useEffect(()=>{
 
-        console.log(language, " Editor Did Mount with value", value)
         
     },[])
 
     function handleChange(e) {
         console.log("hit handle change")
+        setViewMode(false)
         onChange(e)
     }
     function handleSubmit(e) {
@@ -29,6 +29,7 @@ const OurEditor = ({ language, displayName, value, onChange }) => {
             theme='vs-dark' 
             language={language} value={value} 
             onChange={handleChange} 
+            // onClick={setViewMode(false)}
             />
         </div>
     )

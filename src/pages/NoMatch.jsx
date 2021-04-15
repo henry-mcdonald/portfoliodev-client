@@ -1,21 +1,80 @@
 import { useLocation } from 'react-router-dom'
+import axios from 'axios'
+import { useState, useEffect } from 'react';
+import DisplayOutput from '../components/DisplayOutput'
+
+const NoMatch = ({ pageList, user, setPageList, html, css, setHtml, setCss }) => {
+    const [validLink, setValidLink] = useState(false)
+    // const [htmlToRender,setHtmlToRender] = useState("")
+    // const [cssToRender,setCssToRender] = useState("")
+    // const [currentPage, setCurrentPage] = useState("")
 
 
-const NoMatch = ({ pageList }) => {
     const location = useLocation();
-    const currentPage = location.pathname
-    const currentPageVariation1 = location.pathname.substring(1)
+    const currentPage = location.pathname.toLowerCase()
+    const currentPageVariation1 = location.pathname.substring(1).toLowerCase()
 
-    const validLink = pageList.includes(currentPage) || pageList.includes(currentPageVariation1)
-    
-    const userOutput = <div>Placeholder for user output</div>
+    const getPageList = async () => {
 
-    const errorScreen = 
-    <div >
-        <h1>Hello! {currentPage} page does not exist</h1>
-        <button className="NiceButton">Create {currentPage}</button>
-        <button className="NiceButton">Take Me Back</button>
-    </div >
+
+        const token = localStorage.getItem('jwt')
+        const userId = localStorage.getItem('userId')
+
+        const authHeaders = {
+            'Authorization': token
+        }
+        const results = await (await axios.get(`${process.env.REACT_APP_SERVER_URL}/pages/getAllPages/${userId}`, { headers: authHeaders })).data.pageData.pages
+        const thePageList = []
+
+        console.log(results)
+        for (let i = 0; i < results.length; i++) {
+            let name = results[i].name.toLowerCase()
+            if (name === currentPage || name === currentPageVariation1) {
+                // setHtmlToRender(results[i].html)
+                // setCssToRender(results[i].css)
+                setHtml(results[i].html)
+                setCss(results[i].css)
+                setValidLink(true)
+            } else {
+                console.log(`Page Name is ${results[i].name} which doesn't match ${currentPageVariation1} or ${currentPage}`)
+            }
+        }
+
+
+        console.log("current page list at NoMatch,", thePageList)
+
+    }
+
+    useEffect(getPageList, [])
+
+
+    const htmlToDisplay = `
+    <html>
+    <body>${html}</body>
+    <style>${css}</style>
+    </html>
+    `
+    const userOutput =
+        <div
+            dangerouslySetInnerHTML={{ __html: htmlToDisplay }}
+        >
+            {/* <DisplayOutput 
+        html={htmlToRender}
+        css={cssToRender}
+        
+        /> */}
+
+
+
+
+        </div>
+
+
+
+    const errorScreen =
+        <div >
+            <h4> {currentPage} is not a valid path</h4>
+        </div >
 
 
     return (validLink ? userOutput : errorScreen)

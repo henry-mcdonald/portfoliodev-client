@@ -16,14 +16,21 @@ import PreviewContainer from './components/PreviewContainer'
 import EditOrPreview from './components/EditOrPreview'
 import Pages from './components/Pages'
 import NoMatch from './pages/NoMatch'
+import DisplayOutput from './components/DisplayOutput'
 
 
 const App = () => {
 
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState({_id:null})
     const [inPreviewMode] = useState(true)
+    const [html, setHtml] = useState("")
+    const [css, setCss] = useState("")
+    const [htmlToRender, setHtmlToRender] = useState("")
+    const [cssToRender, setCssToRender] = useState("")
+    const [viewMode, setViewMode] = useState(false)
 
-    const [pageList, setPageList] = useState(["Main", "Projects", "About Me"])
+
+    const [pageList, setPageList] = useState([])
     // Problem: When we refresh the page, it logs us out.. EVEN THOUGH
     // We have a token!
     // Solution: useEffect to log in the user from the saved token
@@ -91,6 +98,16 @@ const App = () => {
                                     user={user}
                                         pageList={pageList}
                                         setPageList={setPageList}
+                                        html={html}
+                                        css={css}
+                                        setHtml={setHtml}
+                                        setCss={setCss}
+                                        htmlToRender={htmlToRender}
+                                        cssToRender={cssToRender}
+                                        setHtmlToRender={setHtmlToRender}
+                                        setCssToRender={setCssToRender}
+                                        viewMode={viewMode}
+                                        setViewMode={setViewMode}
 
                                     />
                                 </>
@@ -101,12 +118,30 @@ const App = () => {
                         </Route>
 
                         <Route exact path='/preview'>
-                            <PreviewContainer />
+                        <DisplayOutput 
+                    html={html}
+                    css={css}
+                    user={user}
+                    viewMode={viewMode}
+                    setViewMode={setViewMode}
+                    htmlToRender={htmlToRender}
+                    cssToRender={cssToRender}
+                    setHtmlToRender={setHtmlToRender}
+                    setCssToRender={setCssToRender}
+                    initialHeight={800}
+                    initialWidth='100%'
+                    />
                         </Route>
                         <Route path="*" > 
                             <NoMatch 
                             pageList={pageList}
                             user={user}
+                            setPageList={setPageList}
+                            html={html}
+                            css={css}
+                            setHtml={setHtml}
+                            setCss={setCss}
+
                             />
 
                         </Route>

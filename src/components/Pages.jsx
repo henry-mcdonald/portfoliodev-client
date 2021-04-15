@@ -3,10 +3,11 @@ import EditScreen from './EditScreen'
 import AddOrRemovePage from '../components/AddOrRemovePage'
 import axios from 'axios'
 
-const Pages = ({ user, pageList, setPageList }) => {
+const Pages = ({ user, pageList, setPageList ,html,css,setHtml,setCss,
+    htmlToRender,cssToRender,setHtmlToRender,setCssToRender,
+viewMode, setViewMode}) => {
     const [currentPage, setCurrentPage] = useState("Main") // default always to main
-    const [initialHtml, setInitialHtml] = useState("")
-    const [initialCss, setInitialCss] = useState("")
+
 
 
     let initialPageList = []
@@ -27,11 +28,9 @@ const Pages = ({ user, pageList, setPageList }) => {
             }
         }
         setPageList(initialPageList)
-        setInitialHtml(pageData[indexOfPage].html)
-        setInitialCss(pageData[indexOfPage].css)
-        console.log("API is hit, initial html is:\n", pageData[indexOfPage].html)
-        console.log("API is hit, initial css is:\n", pageData[indexOfPage].css)
-    }, [currentPage])
+        setHtml(pageData[indexOfPage].html)
+        setCss(pageData[indexOfPage].css)
+      }, [currentPage])
 
 
     const dropdownOptions = pageList.map((pageName) => {
@@ -41,7 +40,18 @@ const Pages = ({ user, pageList, setPageList }) => {
         >{pageName}</option>
     })
 
+
+    const handleEditPage = async() => {
+        const token = localStorage.getItem('jwt')
+        const authHeaders = {
+            'Authorization': token
+        }
+        const pageData = await axios.post(`${process.env.REACT_APP_SERVER_URL}/pages/${user._id}/${currentPage}`, {content:{html:html,css:css}}, { headers: authHeaders })//.data.pageData.pages
+ 
+    }
+
     const handleSelect = async (e) => {
+        handleEditPage()
         let indexOfPage
         setCurrentPage(e.target.value)
         const token = localStorage.getItem('jwt')
@@ -57,13 +67,13 @@ const Pages = ({ user, pageList, setPageList }) => {
                 indexOfPage = i
             }
         }
-        setInitialHtml(pageData[indexOfPage].html)
-        setInitialCss(pageData[indexOfPage].css)
+        setHtml(pageData[indexOfPage].html)
+        setCss(pageData[indexOfPage].css)
 
     }
-    const handleEditPage = () => {
 
-    }
+
+
 
     return (
 
@@ -90,11 +100,21 @@ const Pages = ({ user, pageList, setPageList }) => {
             <EditScreen
                 user={user}
                 currentPage={currentPage}
-                initialHtml={initialHtml}
-                initialCss={initialCss}
+                html={html}
+                css={css}
                 setCurrentPage={setCurrentPage}
+                setHtml={setHtml}
+                setCss={setCss}
+                pageList={pageList}
+                htmlToRender={htmlToRender}
+                cssToRender={cssToRender}
+                setHtmlToRender={setHtmlToRender}
+                setCssToRender={setCssToRender}
+                viewMode={viewMode}
+                setViewMode={setViewMode}
             ></EditScreen>
             <button className="NiceButton" onClick={handleEditPage}>Save Changes</button>
+
         </div>
 
     )

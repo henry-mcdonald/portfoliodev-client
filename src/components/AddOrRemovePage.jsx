@@ -9,16 +9,12 @@ const AddOrRemovePage = ({user,setPageList,setCurrentPage}) => {
     const handleCreatePage = async(e) => {
         e.preventDefault()
         const token = localStorage.getItem('jwt')
-        console.log(token)
         const authHeaders =  {
             'Authorization': token
         }
         const results = await (await axios.get(`${process.env.REACT_APP_SERVER_URL}/pages/${user._id}/${pageNameToCreate}/new`,{headers:authHeaders})).data.pageData.pages
-        console.log(results)
         const newPageList = []
-        for(let i =0; i<results.length;i++){
-            newPageList.push(results[i].name)
-        }
+
         setPageList(newPageList)
         setCurrentPage(pageNameToCreate)
         

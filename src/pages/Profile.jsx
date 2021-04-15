@@ -3,7 +3,7 @@ import { Redirect } from "react-router"
 
 const Profile = ({ user }) => {
     console.log(user)
-    if(user) {
+    if(user._id) {
 
         const makeAnAuthRequest = async() => {
             const token = localStorage.getItem('jwt')

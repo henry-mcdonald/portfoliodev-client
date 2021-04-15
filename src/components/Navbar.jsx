@@ -35,7 +35,7 @@ const Navbar = ({ user, handleLogout }) => {
                 <li>
                     <Link to="/">Home</Link>
                 </li>
-                {user ? loggedIn : loggedOut}
+                {user._id ? loggedIn : loggedOut}
             </ul>
         </nav>
     )
