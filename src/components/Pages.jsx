@@ -95,6 +95,7 @@ viewMode, setViewMode}) => {
                     user={user}
                     setCurrentPage={setCurrentPage}
                 />
+                
             </div>
 
             <EditScreen
