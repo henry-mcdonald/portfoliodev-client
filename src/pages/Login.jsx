@@ -21,7 +21,7 @@ const Login = props => {
         <div className="login">
             <h1>Login</h1>
             <GoogleLoginButton onClick={handleGoogleClick} />
-            <GithubLoginButton onClick={handleGithubClick} />
+            {/* <GithubLoginButton onClick={handleGithubClick} /> */}
         </div>
     )
 }
