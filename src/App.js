@@ -52,7 +52,7 @@ const App = () => {
             console.log(err)
             console.log('The token is expired!!!')
             localStorage.removeItem('jwt')
-            setUser(null)
+            setUser({_id:null})
         }
     }, [])
 
@@ -61,7 +61,7 @@ const App = () => {
         if (localStorage.getItem('jwt')) {
             localStorage.removeItem('jwt')
             // and removing the user state variable
-            setUser(null)
+            setUser({_id:null})
         }
     }
 

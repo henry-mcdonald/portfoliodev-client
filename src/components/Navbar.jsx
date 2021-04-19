@@ -4,17 +4,17 @@ const Navbar = ({ user, handleLogout }) => {
     const loggedIn = (
         <div>
             <li>
-                <Link to="/edit">Edit</Link>
+                <Link to="/edit" user={user}> Edit</Link>
             </li>
             <li>
-                <Link to="/preview">Preview</Link>
+                <Link to="/preview" user={user}>Preview</Link>
             </li>
             <li>
-                <Link to="/profile">Profile</Link>
+                <Link to="/profile" user={user}>Deploy</Link>
             </li>
             <li>
                 <Link to="/">
-                    <span onClick={handleLogout}>Logout</span>
+                    <span onClick={handleLogout} >Logout</span>
                 </Link>
             </li>
         </div>
@@ -33,7 +33,7 @@ const Navbar = ({ user, handleLogout }) => {
         <nav>
             <ul>
                 <li>
-                    <Link to="/">Home</Link>
+                    <Link to="/" user={user}>Home </Link>
                 </li>
                 {user._id ? loggedIn : loggedOut}
             </ul>

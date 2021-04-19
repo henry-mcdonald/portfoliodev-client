@@ -23,14 +23,19 @@ const Profile = ({ user }) => {
 
         }
     }, [alias])
-    const handleSubmit = () => {
-
+    const handleSubmit = async() => {
+        const token = localStorage.getItem('jwt')
+        const authHeaders = {
+            'Authorization': token
+        }
+        const pageData = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/addUsername/${alias}`,{ headers: authHeaders })
+ 
     }
     let msg = <div></div>
     if (user.username) {
         msg = <div><h1 style={{
             fontSize:22
-        }}>Your website is deployed at: {baseUrl + alias}</h1></div>
+        }}>Your website is deployed at: {baseUrl + user.username}</h1></div>
     } else {
         msg = <div>
                         <div className="inputContainer" style={{
@@ -60,8 +65,6 @@ const Profile = ({ user }) => {
 
     if (user._id) {
 
-
-
         return (
 
 
@@ -70,8 +73,6 @@ const Profile = ({ user }) => {
 
         )
     }
-
-
 
     else {
         return <Redirect to="/login" />
