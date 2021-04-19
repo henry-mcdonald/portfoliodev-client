@@ -4,12 +4,13 @@ import {
 } from 'react-social-login-buttons'
 
 
-const SERVER_URL = process.env.REACT_APP_SERVER_URL
-
+let SERVER_URL = process.env.REACT_APP_SERVER_URL
+SERVER_URL = SERVER_URL.replace('http','https')
 const Login = props => {
 
     const handleGoogleClick = () => {
         console.log('Google is clicked!')
+        console.log(`${SERVER_URL}`)
         window.location.href = `${SERVER_URL}/auth/google`
     }
 
