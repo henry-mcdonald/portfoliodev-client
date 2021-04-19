@@ -5,7 +5,7 @@ import {
 
 
 let SERVER_URL = process.env.REACT_APP_SERVER_URL
-SERVER_URL = SERVER_URL.replace('http','https')
+//SERVER_URL = SERVER_URL.replace('http','https')
 const Login = props => {
 
     const handleGoogleClick = () => {
