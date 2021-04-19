@@ -1,30 +1,80 @@
 import axios from 'axios'
 import { Redirect } from "react-router"
-
+import { useEffect, useState } from 'react'
 const Profile = ({ user }) => {
     console.log(user)
-    if(user._id) {
+    const [alias, setAlias] = useState("")
+    const [buttonDisabled, setButtonDisabled] = useState(user.username)
+    const [message, setMessage] = useState("")
 
-        const makeAnAuthRequest = async() => {
-            const token = localStorage.getItem('jwt')
-            console.log(token)
-            const authHeaders =  {
-                'Authorization': token
-            }
-            const responseFromLockedResource = await axios.get(`${process.env.REACT_APP_SERVER_URL}/exampleResource`,{ headers: authHeaders })
-            console.log(responseFromLockedResource)
+    const url = window.location.href
+    const baseUrl = url.substring(0, url.lastIndexOf('/')) + '/'
+
+    const handleChange = (e) => {
+        setAlias(e.target.value)
+
+    }
+    useEffect(() => {
+        if (alias.includes(" ") || alias.includes('/')) {
+            setButtonDisabled(true)
+            setMessage("Alias cannot contain spaces or '/' character")
+        } else {
+            console.log("it's valid")
+
         }
-        makeAnAuthRequest()
+    }, [alias])
+    const handleSubmit = async() => {
+        const token = localStorage.getItem('jwt')
+        const authHeaders = {
+            'Authorization': token
+        }
+        const pageData = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/addUsername/${alias}`,{ headers: authHeaders })
+ 
+    }
+    let msg = <div></div>
+    if (user.username) {
+        msg = <div><h1 style={{
+            fontSize:22
+        }}>Your website is deployed at: {baseUrl + user.username}</h1></div>
+    } else {
+        msg = <div>
+                        <div className="inputContainer" style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignContent: 'center',
+                justifyContent: 'center',
+                margin: '0 auto'
+            }}>
 
-        return (
-            <div>
-                <h1>{user.displayName}'s Profile</h1>
-                <img src={user.photos[0].value} alt="profile"/>
-                <p>Logged in from {user.provider}</p>
+                <form >
+                    <label style={{ height: 32 }}>
+                        <h4 style={{ color: 'red' }}>{message}</h4>
+                        <input type="text" name="newFormName"
+                            onChange={handleChange}
+                        />
+                    </label>
+                </form>
 
             </div>
+            <button disabled={buttonDisabled} className="NiceButton" onClick={handleSubmit}>Deploy 'Main' page at url:</button>
+
+            <h2 style={{ fontSize: 20 }}>{baseUrl + alias}</h2>
+
+        </div>
+    }
+
+    if (user._id) {
+
+        return (
+
+
+
+<div>{msg} </div>
+
         )
-    } else {
+    }
+
+    else {
         return <Redirect to="/login" />
     }
 }

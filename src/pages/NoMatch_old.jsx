@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react';
 import DisplayOutput from '../components/DisplayOutput'
 
-const NoMatch = ({ pageList, user, setPageList, html, css, setHtml, setCss }) => {
+const NoMatch_old = ({ pageList, user, setPageList, html, css, setHtml, setCss }) => {
     const [validLink, setValidLink] = useState(false)
     // const [htmlToRender,setHtmlToRender] = useState("")
     // const [cssToRender,setCssToRender] = useState("")
@@ -51,13 +51,19 @@ const NoMatch = ({ pageList, user, setPageList, html, css, setHtml, setCss }) =>
     const htmlToDisplay = `
     <html>
     <body>${html}</body>
-    <style>${css}</style>
+    <style>${css}
     </html>
     `
     const userOutput =
         <div
-            dangerouslySetInnerHTML={{ __html: htmlToDisplay }}
+            dangerouslySetInnerHTML={{ __html: html }}
+        // style={JSON.parse(css)}
+        // onChange={() => {this.refs.thediv.setAttribute("style",css)}}
+        // ref="thediv"
+
         >
+
+
             {/* <DisplayOutput 
         html={htmlToRender}
         css={cssToRender}
@@ -80,4 +86,4 @@ const NoMatch = ({ pageList, user, setPageList, html, css, setHtml, setCss }) =>
     return (validLink ? userOutput : errorScreen)
 }
 
-export default NoMatch
+export default NoMatch_old

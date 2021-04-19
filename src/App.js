@@ -15,8 +15,9 @@ import Home from './pages/Home'
 import PreviewContainer from './components/PreviewContainer'
 import EditOrPreview from './components/EditOrPreview'
 import Pages from './components/Pages'
-import NoMatch from './pages/NoMatch'
+import NoMatch from './components/NoMatch'
 import DisplayOutput from './components/DisplayOutput'
+
 
 
 const App = () => {
@@ -51,7 +52,7 @@ const App = () => {
             console.log(err)
             console.log('The token is expired!!!')
             localStorage.removeItem('jwt')
-            setUser(null)
+            setUser({_id:null})
         }
     }, [])
 
@@ -60,7 +61,7 @@ const App = () => {
         if (localStorage.getItem('jwt')) {
             localStorage.removeItem('jwt')
             // and removing the user state variable
-            setUser(null)
+            setUser({_id:null})
         }
     }
 
@@ -74,7 +75,7 @@ const App = () => {
                     <Switch>
                         <Route exact path="/">
                             <Navbar user={user} handleLogout={handleLogout} />
-                            <Home />
+                            <Home user={user}/>
                         </Route>
                         <Route path="/profile">
                             <Navbar user={user} handleLogout={handleLogout} />
@@ -113,9 +114,7 @@ const App = () => {
                                 </>
                             } />
 
-                        <Route exact path='/notfound404'>
-                            <NoMatch />
-                        </Route>
+
 
                         <Route exact path='/preview'>
                         <DisplayOutput 
@@ -133,7 +132,9 @@ const App = () => {
                     />
                         </Route>
                         <Route path="*" > 
-                            <NoMatch 
+
+                        <NoMatch user={user}/>
+                            {/* <NoMatch_old 
                             pageList={pageList}
                             user={user}
                             setPageList={setPageList}
@@ -142,7 +143,7 @@ const App = () => {
                             setHtml={setHtml}
                             setCss={setCss}
 
-                            />
+                            /> */}
 
                         </Route>
                     </Switch>
