@@ -8,6 +8,7 @@ initialHeight,initialWidth}) => {
     // <html>
     // <body>${previewHtml}</body>
     // <style>${previewCss}</style>
+    // <script>{javasript}</script>
     // </html>    ` 
 
 
